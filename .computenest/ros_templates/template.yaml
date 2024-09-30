@@ -168,8 +168,8 @@ Resources:
           - |
             #!/bin/bash
             # 源代码通过computenest-cli被打包为tar.gz包，并发布为部署物
-            wget '{{ computenest::file::HankXYang_Ingram001 }}' -O HankXYang_Ingram001.tar.gz > /var/log/download.log
-            tar -zxvf HankXYang_Ingram001.tar.gz && cd "$(tar -tzf HankXYang_Ingram001.tar.gz | head -1 | awk -F'/' '{print $1}')"
+            wget '{{ computenest::file::Ingram001 }}' -O Ingram001.tar.gz > /var/log/download.log
+            tar -zxvf Ingram001.tar.gz && cd "$(tar -tzf Ingram001.tar.gz | head -1 | awk -F'/' '{print $1}')"
             echo "start run command"
             echo "${AdminPassword}"
 

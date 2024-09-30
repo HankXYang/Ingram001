@@ -4,7 +4,7 @@ Service:
   DeployMetadata:
     SupplierDeployMetadata:
       FileArtifactRelation:
-        '{{ computenest::file::HankXYang_Ingram001 }}':
+        '{{ computenest::file::Ingram001 }}':
           ArtifactId: ${Artifact.Artifact_1.ArtifactId}
           ArtifactVersion: ${Artifact.Artifact_1.ArtifactVersion}
     TemplateConfigs:
@@ -22,7 +22,7 @@ Service:
 Artifact:
   Artifact_1:
     ArtifactType: File
-    ArtifactName: HankXYang_Ingram001
+    ArtifactName: Ingram001
     ArtifactProperty:
       RegionId: cn-hangzhou
-      Url: 'resources/artifact_resources/file/HankXYang_Ingram001.tar.gz'
+      Url: 'resources/artifact_resources/file/Ingram001.tar.gz'
