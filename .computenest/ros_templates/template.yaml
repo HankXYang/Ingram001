@@ -1,7 +1,4 @@
 ROSTemplateFormatVersion: '2015-09-01'
-Description:
-  en: Source Code Service Ros Template
-  zh-cn: 源代码服务模板
 Conditions:
   CreateVpcConditions:
     Fn::Equals:
@@ -154,6 +151,11 @@ Parameters:
       en: Zone ID
       zh-cn: 可用区ID
     AssociationProperty: ALIYUN::ECS::Instance::ZoneId
+    AssociationPropertyMetadata:
+      DefaultValueStrategy: random
+      InstanceChargeType: ${PayType}
+      SystemDiskCategory: cloud_essd
+      InstanceType: ${EcsInstanceType}
   VpcId:
     Type: String
     Label:
@@ -166,6 +168,7 @@ Parameters:
         - ${VpcOption}
     Default: ''
     AssociationPropertyMetadata:
+      AutoSelectFirst: true
       Visible:
         Condition:
           Fn::Equals:
@@ -183,6 +186,7 @@ Parameters:
         - ${VpcOption}
     Default: ''
     AssociationPropertyMetadata:
+      AutoSelectFirst: true
       VpcId: VpcId
       ZoneId: ZoneId
       Visible:
@@ -258,7 +262,7 @@ Resources:
         Ref: ZoneId
       SecurityGroupId:
         Ref: SecurityGroup
-      ImageId: "{{resolve:oos:aliyun/services/ecs/images/linux/centos-latest/centos_7_9_x64}}"
+      ImageId: ecs_image_Ingram001
       Password:
         Ref: InstancePassword
       InstanceType:
@@ -282,11 +286,8 @@ Resources:
         Fn::Sub:
           - |
             #!/bin/bash
-            # 源代码通过computenest-cli被打包为tar.gz包，并发布为部署物
-            wget '{{ computenest::file::HankXYang_Ingram001 }}' -O HankXYang_Ingram001.tar.gz > /var/log/download.log
-            tar -zxvf HankXYang_Ingram001.tar.gz && cd "$(tar -tzf HankXYang_Ingram001.tar.gz | head -1 | awk -F'/' '{print $1}')"
+            cd /root/application
             echo "start run command"
-            echo "${!AdminPassword}"
 
             ARGUS_VERSION=3.5.7 /bin/bash -c "$(curl -sS https://cms-agent-${RegionId}.oss-${RegionId}-internal.aliyuncs.com/Argus/agent_install_ecs-1.7.sh)" >> /root/install_cms_agent.log 2>&1
           - RegionId:
